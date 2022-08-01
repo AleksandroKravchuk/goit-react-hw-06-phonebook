@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import Section from './Section/Section';
-import { Form } from './Form/Form';
-import Contacts from './Contacts/Contacts';
-import Filter from './Filter/Filter';
+import Section from '../Section/Section';
+import { Form } from '../Form/Form';
+import Contacts from '../Contacts/Contacts';
+import Filter from '../Filter/Filter';
+// import { actions } from '../../redux/actions';
 
 export function App() {
   const [contacts, setContacts] = useState(
@@ -33,6 +34,7 @@ export function App() {
     });
 
     if (!chekedName & !chekedTel) {
+      // actions.addContact(nameItem);
       setContacts([...contacts, nameItem]);
 
       Notify.success(`${name} added in contacts`);

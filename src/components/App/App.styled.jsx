@@ -52,25 +52,3 @@ export const Heading = styled.h2`
     font-size: ${props => props.theme.fontSizes.xxl};
   }
 `;
-
-export const Text = styled.p`
-  font-size: ${props => props.theme.fontSizes.small};
-  font-weight: 700;
-
-  text-align: ${({ textAlign }) => (!textAlign ? 'left' : textAlign)};
-  margin-bottom: ${props => props.theme.spacing.step * 5}px;
-
-  @media (min-width: ${props => props.theme.breakpoints.s}) {
-    font-size: ${props => props.theme.fontSizes.medium};
-
-    margin-bottom: ${props => props.theme.spacing.step * 7}px;
-  }
-  @media (min-width: ${props => props.theme.breakpoints.m}) {
-    font-size: ${props => props.theme.fontSizes.large};
-
-    margin-bottom: ${props => props.theme.spacing.step * 10}px;
-  }
-  @media (min-width: ${props => props.theme.breakpoints.l}) {
-    margin-bottom: ${props => props.theme.spacing.step * 20}px;
-  }
-`;

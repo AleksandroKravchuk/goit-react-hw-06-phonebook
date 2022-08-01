@@ -16,7 +16,7 @@ export const ButtonDelete = styled.button`
   background-color: ${props => props.theme.colors.primary};
   margin-left: ${props => props.theme.spacing.step}px;
   padding: ${props => props.theme.spacing.step}px;
-  border-radius: ${props => props.theme.spacing.step * 2}px;
+  border-radius: ${props => props.theme.spacing.step}px;
   right: ${props => props.theme.spacing.step}px;
   position: absolute;
   cursor: pointer;

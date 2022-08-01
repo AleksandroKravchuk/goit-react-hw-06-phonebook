@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const SectionWrap = styled.section`
   text-align: start;
-  padding: 20px;
+  padding: ${props => props.theme.spacing.step * 5}px;
   width: 350px;
 `;
 export const Heading = styled.h2`
