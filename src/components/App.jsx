@@ -59,11 +59,7 @@ export function App() {
   };
 
   return (
-    <div
-      style={{
-        height: '100vh',
-      }}
-    >
+    <>
       <Section title={'Phonebook'}>
         <Form onSubmit={addName}></Form>
       </Section>
@@ -71,6 +67,6 @@ export function App() {
         <Filter value={filter} onChange={onChange}></Filter>
         <Contacts name={getVisibleName()} deleteName={onDeleteName}></Contacts>
       </Section>
-    </div>
+    </>
   );
 }

@@ -1,28 +1,10 @@
-import styled from "styled-components";
+import styled from '@emotion/styled';
 
 export const ContactsList = styled.ul`
-    width:90%;
-`
+  width: 100%;
+  margin-top: ${props => props.theme.spacing.step * 2}px;
+`;
 export const ContactsItem = styled.li`
-position:relative;
-   background-color:yellowgreen;
-`
-export const ContactsText = styled.p`
-    font-size:16px;
-    color: azure;
-    padding:5px;
-`
-export const Tel = styled.span`
-    font-size:15px;
-    color:#fafaf4;
-`
-export const ButtonDelete = styled.button`
-    font-size:10px;
- background-color:teal;
- cursor: pointer;
-    padding:5px;
-    border-radius:8px;
-  position:absolute;
-  right:5px;
-    border:none;
-`
+  position: relative;
+  background-color: ${props => props.theme.colors.dark};
+`;

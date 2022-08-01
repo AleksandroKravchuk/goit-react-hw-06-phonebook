@@ -1,31 +1,41 @@
-import styled from "styled-components";
+import styled from '@emotion/styled';
 
 export const FormName = styled.form`
- background-color: #ca23ca;
- width:100%;
-`
+  background-color: ${props => props.theme.colors.dark};
+  width: 100%;
+`;
 export const InputName = styled.input`
-background-color: #e8e3e3;
-     padding: 5px;
-    width:90%;
-    border:solid 2px black;
-    margin-top:15px;
-    margin-bottom:15px;
-`
+  background-color: #e8e3e3;
+  padding: ${props => props.theme.spacing.step}px;
+  width: 100%;
+  border: solid 2px black;
+  margin-top: ${props => props.theme.spacing.step * 4}px;
+  margin-bottom: ${props => props.theme.spacing.step * 4}px;
+`;
 export const Label = styled.label`
-font-size:20px;
-color:yellowgreen;
-text-align:center
-`
+  font-size: ${props => props.theme.fontSizes.medium};
+  color: yellowgreen;
+  transform: translateX();
+`;
 
 export const Button = styled.button`
-font-size:15px;
-padding:5px 10px;
-text-align:center;
-border-radius:5px;
-cursor: pointer;
-transition:background-color 250ms linear;
-:hover{
-    background-color:bisque;
-}
-`
+  font-size: ${props => props.theme.fontSizes.small};
+  padding-top: ${props => props.theme.spacing.step}px;
+  padding-bottom: ${props => props.theme.spacing.step}px;
+  padding-left: ${props => props.theme.spacing.step * 2}px;
+  padding-right: ${props => props.theme.spacing.step * 2}px;
+  color: ${props => props.theme.colors.white};
+  background-color: ${props => props.theme.colors.primary};
+  text-align: center;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: ${props => props.theme.spacing.step * 2}px;
+  border-radius: ${props => props.theme.spacing.step}px;
+  cursor: pointer;
+  transition: background-color 250ms linear;
+
+  :hover {
+    color: ${props => props.theme.colors.dark};
+    background-color: bisque;
+  }
+`;
