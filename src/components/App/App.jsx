@@ -1,22 +1,26 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { connect } from 'react-redux';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import Section from '../Section/Section';
 import { Form } from '../Form/Form';
-import Contacts from '../Contacts/Contacts';
+// import Contacts from '../Contacts/Contacts';
 import Filter from '../Filter/Filter';
-// import { actions } from '../../redux/actions';
+import { actions } from '../../redux/actions';
 
-export function App() {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(localStorage.getItem('contacts')) || []
-  );
-  const [filter, setFilter] = useState('');
+const App = ({ contacts, filter, addContact, deleteContact, chahgeFilter }) => {
+  // const [contacts, setContacts] = useState(
+  //   () => JSON.parse(localStorage.getItem('contacts')) || []
+  // );
+  // const [filter, setFilter] = useState('');
 
-  useEffect(
-    () => localStorage.setItem('contacts', JSON.stringify(contacts)),
-    [contacts]
-  );
+  // useEffect(
+  //   () => localStorage.setItem('contacts', JSON.stringify(contacts)),
+  //   [contacts]
+  // );
+  console.log(addContact());
+  // console.log(deleteContact());
+  console.log(contacts);
 
   const addName = (name, number) => {
     const nameItem = {
@@ -34,8 +38,9 @@ export function App() {
     });
 
     if (!chekedName & !chekedTel) {
-      // actions.addContact(nameItem);
-      setContacts([...contacts, nameItem]);
+      console.log(nameItem);
+      // addContact(nameItem);
+      // setContacts([...contacts, nameItem]);
 
       Notify.success(`${name} added in contacts`);
     } else if (chekedName) {
@@ -46,29 +51,43 @@ export function App() {
     }
   };
 
-  const onChange = evt => {
-    setFilter(evt.currentTarget.value);
-  };
-  const getVisibleName = () => {
-    const normalazedFilter = filter.toLowerCase();
-    return contacts.filter(item =>
-      item.name.toLowerCase().includes(normalazedFilter)
-    );
-  };
+  // const onChange = evt => {
+  //   setFilter(evt.currentTarget.value);
+  // };
+  // const getVisibleName = () => {
+  //   const normalazedFilter = filter.toLowerCase();
+  //   return contacts.filter(item =>
+  //     item.name.toLowerCase().includes(normalazedFilter)
+  //   );
+  // };
 
-  const onDeleteName = id => {
-    setContacts(prevState => prevState.filter(item => item.id !== id));
-  };
+  // const onDeleteName = id => {
+  //   setContacts(prevState => prevState.filter(item => item.id !== id));
+  // };
 
   return (
     <>
       <Section title={'Phonebook'}>
-        <Form onSubmit={addName}></Form>
+        <Form onSubmit={addName}> </Form>
       </Section>
       <Section title={'Contacts'}>
-        <Filter value={filter} onChange={onChange}></Filter>
-        <Contacts name={getVisibleName()} deleteName={onDeleteName}></Contacts>
+        <Filter value={filter}></Filter>
+        {/* onChange={onChange} */}
+        {/* <Contacts></Contacts> */}
+        {/* name={getVisibleName()} */}
+        {/* deleteName={onDeleteName} */}
       </Section>
     </>
   );
-}
+};
+const mapStateToProps = state => {
+  return { contacts: state.contacts.items, filter: state.contacts.filter };
+};
+const mapDispatchProps = dispatch => {
+  return {
+    addContact: value => dispatch(actions.addContact(value)),
+    deleteContact: value => dispatch(actions.deleteContact(value)),
+    chahgeFilter: value => dispatch(actions.chahgeFilter(value)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchProps)(App);
