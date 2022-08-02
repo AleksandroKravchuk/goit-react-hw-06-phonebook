@@ -4,24 +4,11 @@ import { connect } from 'react-redux';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import Section from '../Section/Section';
 import { Form } from '../Form/Form';
-// import Contacts from '../Contacts/Contacts';
+import Contacts from '../Contacts/Contacts';
 import Filter from '../Filter/Filter';
 import { actions } from '../../redux/actions';
 
 const App = ({ contacts, filter, addContact, deleteContact, chahgeFilter }) => {
-  // const [contacts, setContacts] = useState(
-  //   () => JSON.parse(localStorage.getItem('contacts')) || []
-  // );
-  // const [filter, setFilter] = useState('');
-
-  // useEffect(
-  //   () => localStorage.setItem('contacts', JSON.stringify(contacts)),
-  //   [contacts]
-  // );
-  console.log(addContact());
-  // console.log(deleteContact());
-  console.log(contacts);
-
   const addName = (name, number) => {
     const nameItem = {
       name,
@@ -29,7 +16,6 @@ const App = ({ contacts, filter, addContact, deleteContact, chahgeFilter }) => {
       number,
     };
     const normalizedName = name.toLowerCase();
-
     const chekedName = contacts.find(item => {
       return item.name.toLowerCase() === normalizedName;
     });
@@ -38,10 +24,7 @@ const App = ({ contacts, filter, addContact, deleteContact, chahgeFilter }) => {
     });
 
     if (!chekedName & !chekedTel) {
-      console.log(nameItem);
-      // addContact(nameItem);
-      // setContacts([...contacts, nameItem]);
-
+      addContact(nameItem);
       Notify.success(`${name} added in contacts`);
     } else if (chekedName) {
       return Notify.failure(`${name} is already in contacts`);
@@ -51,19 +34,19 @@ const App = ({ contacts, filter, addContact, deleteContact, chahgeFilter }) => {
     }
   };
 
-  // const onChange = evt => {
-  //   setFilter(evt.currentTarget.value);
-  // };
-  // const getVisibleName = () => {
-  //   const normalazedFilter = filter.toLowerCase();
-  //   return contacts.filter(item =>
-  //     item.name.toLowerCase().includes(normalazedFilter)
-  //   );
-  // };
+  const onChange = evt => {
+    chahgeFilter(evt.currentTarget.value);
+  };
+  const getVisibleName = () => {
+    const normalazedFilter = filter.toLowerCase();
+    return contacts.filter(item =>
+      item.name.toLowerCase().includes(normalazedFilter)
+    );
+  };
 
-  // const onDeleteName = id => {
-  //   setContacts(prevState => prevState.filter(item => item.id !== id));
-  // };
+  const onDeleteContact = id => {
+    deleteContact(id);
+  };
 
   return (
     <>
@@ -71,15 +54,16 @@ const App = ({ contacts, filter, addContact, deleteContact, chahgeFilter }) => {
         <Form onSubmit={addName}> </Form>
       </Section>
       <Section title={'Contacts'}>
-        <Filter value={filter}></Filter>
-        {/* onChange={onChange} */}
-        {/* <Contacts></Contacts> */}
-        {/* name={getVisibleName()} */}
-        {/* deleteName={onDeleteName} */}
+        <Filter value={filter} onChange={onChange}></Filter>
+        <Contacts
+          name={getVisibleName()}
+          deleteName={onDeleteContact}
+        ></Contacts>
       </Section>
     </>
   );
 };
+
 const mapStateToProps = state => {
   return { contacts: state.contacts.items, filter: state.contacts.filter };
 };
