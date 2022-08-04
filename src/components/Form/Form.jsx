@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { FormName, InputName, Label, Button } from './Form.styled';
+import { actions } from 'redux/actions';
 
-export const Form = ({ onSubmit }) => {
+export const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.items);
 
   const onChangeInput = evt => {
     const { name, value } = evt.target;
@@ -18,13 +24,37 @@ export const Form = ({ onSubmit }) => {
         break;
     }
   };
+  const addName = () => {
+    const nameItem = {
+      name,
+      id: nanoid(),
+      number,
+    };
 
+    const normalizedName = name.toLowerCase();
+    const chekedName = contacts.find(item => {
+      return item.name.toLowerCase() === normalizedName;
+    });
+    const chekedTel = contacts.find(item => {
+      return item.number === number;
+    });
+
+    if (!chekedName & !chekedTel) {
+      dispatch(actions.addContact(nameItem));
+      Notify.success(`${name} added in contacts`);
+    } else if (chekedName) {
+      return Notify.failure(`${name} is already in contacts`);
+    }
+    if (chekedTel) {
+      return Notify.failure(`Number ${number} is already in contacts`);
+    }
+  };
   const hendelSubmit = evt => {
     evt.preventDefault();
     if (name === '' || number === '') {
       return;
     }
-    onSubmit(name, number);
+    addName();
     setName('');
     setNumber('');
   };
