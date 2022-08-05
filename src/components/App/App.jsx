@@ -10,7 +10,7 @@ const App = () => {
         <Form />
       </Section>
       <Section title={'Contacts'}>
-        <Filter></Filter>
+        <Filter/>
         <Contacts />
       </Section>
     </>
